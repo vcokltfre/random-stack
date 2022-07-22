@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+
+    <title>Random Stack</title>
+  </head>
+  <body data-theme="dark">
+    <h1>Random Stack</h1>
+    <h2>Here's what you should create your next project with:</h2>
+
+    <div id="hydrate"></div>
+
+    <button onclick="generate()">Pick again!</button>
+  </body>
+
+  <script>
+    const hydrate = document.getElementById("hydrate");
+
+    const databases = [
+      "PostgreSQL",
+      "SQLite",
+      "Redis/KeyDB",
+      "MariaDB",
+      "MySQL",
+      "MongoDB",
+      "Cassandra/Scylla",
+      "RethinkDB",
+      "CouchDB",
+      "Memcached",
+    ];
+
+    const frameworks = [
+      "React",
+      "Svelte",
+      "SolidJS",
+      "Angular",
+      "Vue",
+      "Ember",
+      "Rails",
+      "Laravel",
+      "Django",
+      "Plain HTML",
+      "Plain HTML + jQuery",
+    ];
+
+    const languages = ["Python", "JavaScript", "Go"];
+
+    const backends = {
+      Python: ["FastAPI", "Flask"],
+      JavaScript: ["Express"],
+      Go: ["Gin", "Echo"],
+    };
+
+    function getRandom(values) {
+      return values[Math.floor(Math.random() * values.length)];
+    }
+
+    function getComponent(type, name) {
+      return `<div class="component"><span class="material-symbols-outlined">${type}</span> ${name}</div>`;
+    }
+
+    function generate() {
+      const language = getRandom(languages);
+      const backend = getRandom(backends[language]);
+
+      const value = [
+        getComponent("devices", getRandom(frameworks)),
+        getComponent("code", `${language} (${backend})`),
+        getComponent("database", getRandom(databases)),
+      ].join("\n");
+
+      hydrate.innerHTML = value;
+    }
+
+    generate();
+  </script>
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap");
+
+    :root,
+    body {
+      margin: 0;
+      padding: 0;
+
+      font-family: "Source Sans Pro", sans-serif;
+      text-align: center;
+      align-items: center;
+
+      display: flex;
+      flex-direction: column;
+    }
+
+    [data-theme="dark"] {
+      background-color: #313142;
+      color: #f6f6f6;
+
+      --btn: #87ceeb;
+      --btn-hover: #00bfff;
+      --btn-active: #00bfff;
+      --btn-text: #000000;
+    }
+
+    [data-theme="light"] {
+      background-color: #f6f6f6;
+      color: #000000;
+    }
+
+    h1 {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    button {
+      border-radius: 0.5rem;
+      border-style: none;
+      width: 18rem;
+      font-size: 2rem;
+      background-color: var(--btn);
+      color: var(--btn-text);
+    }
+
+    button:hover {
+      background-color: var(--btn-hover);
+      cursor: pointer;
+    }
+
+    button:active {
+      background-color: var(--btn-active);
+    }
+
+    #hydrate {
+      margin: 2rem 0;
+    }
+
+    .component {
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 1rem;
+      font-size: 3rem;
+    }
+
+    .material-symbols-outlined {
+      font-size: 3.75rem;
+      margin-right: 1rem;
+      offset: 1rem 3rem;
+      user-select: none;
+    }
+  </style>
+</html>
